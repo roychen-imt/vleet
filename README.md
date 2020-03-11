@@ -59,6 +59,8 @@ $ npm install
 
 -   An easy option is to use the `av-dev-tools` to establish the tunnel.
 
+7. The datapoints loaded using this method will not be available in the data lake immediately. The loader is scheduled every 2 hours on DEV1. Once the loader finishes its job, then the datapoints will be available in the data lake.
+
 ### Launch the simulation
 
 From the root folder just launch `./cli.js`

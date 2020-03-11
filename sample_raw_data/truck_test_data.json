@@ -1,0 +1,41 @@
+[
+  {
+    "value_num": 49.2659221,
+    "ts": "2018-09-04T00:03:19.002Z",
+    "load_id": "b8ac25ef-d13f-4b81-bf10-3e6211f91fec",
+    "ref_time": "2018-09-04T00:03:24.439Z",
+    "data_id": "atp.glat",
+    "value_index": 2,
+    "value_string": "49.2659221",
+    "company_id": "43e7a8d364f04d9d809ca7d6e7fc1aa2",
+    "month": "2018-09-01T00:00:00.000Z",
+    "system_id": "7deea50ed9194d7881f6172e42953b5f",
+    "message_id": "290ca4d2359543b587ffbee271fd5d01"
+  },
+  {
+    "value_num": 35.0,
+    "ts": "2018-09-04T00:04:11.002Z",
+    "load_id": "b8ac25ef-d13f-4b81-bf10-3e6211f91fec",
+    "ref_time": "2018-09-04T00:04:13.621Z",
+    "data_id": "atp.vspd",
+    "value_index": 3,
+    "value_string": "35",
+    "company_id": "43e7a8d364f04d9d809ca7d6e7fc1aa2",
+    "month": "2018-09-01T00:00:00.000Z",
+    "system_id": "7deea50ed9194d7881f6172e42953b5f",
+    "message_id": "748ce8013bb149c6bc9da556df2f9873"
+  },
+  {
+    "value_num": -123.1306055,
+    "ts": "2018-09-04T00:04:18.002Z",
+    "load_id": "b8ac25ef-d13f-4b81-bf10-3e6211f91fec",
+    "ref_time": "2018-09-04T00:04:19.620Z",
+    "data_id": "atp.glon",
+    "value_index": 2,
+    "value_string": "-123.1306055",
+    "company_id": "43e7a8d364f04d9d809ca7d6e7fc1aa2",
+    "month": "2018-09-01T00:00:00.000Z",
+    "system_id": "7deea50ed9194d7881f6172e42953b5f",
+    "message_id": "cf3185596dbe4af0a613673ae5b5ad36"
+  }
+]

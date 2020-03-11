@@ -1,0 +1,37 @@
+{
+  "name": "Trucks",
+  "simulationLabel": <A_SYSTEM_LABEL>,
+  "fleet": {
+    "size": 1,
+    "template": {
+      "namePrefix": "DBD_Truck #",
+      "systemType": ["MP70"]
+    }
+  },
+  "generation": {
+    "mode": "datapointBackDoor",
+    "replay": {
+      "dataFile": <DATA_JSON_FILE_NAME>,
+      "nbDaysInPast": 20
+    }
+  },
+  "application": {
+    "name": "AVTA",
+    "data": [
+      {
+        "id": "atp.vspd",
+        "label": "Vehicle speed (Km/h)",
+        "description": "Current truck speed",
+        "elementType": "variable",
+        "type": "double"
+      },
+      {
+        "id": "atp.espd",
+        "label": "Engine speed (RPM)",
+        "description": "Current truck engine speed",
+        "elementType": "variable",
+        "type": "double"
+      }
+    ]
+  }
+}

@@ -1,0 +1,9 @@
+{
+    "simulation": "trucks",
+    "dataCenter": "dev1",
+    "companyUid": <ALMS Engineering Company ID>,
+    "credentials": {
+        "username": <AV USERNAME>,
+        "password": <AV PASSWORD>
+    }
+}

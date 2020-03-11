@@ -12,14 +12,14 @@ const splash = require('./lib/splash');
 const packageJson = jsonfile.readFileSync(`${__dirname}/package.json`);
 
 program
-    .version(packageJson.version)
-    .usage('[options] <your-setup.json> (default: setup.json)')
-    .option('-c, --clean', 'Clean the simulated resources (Systems, Gateways, Applications with the "simulationLabel")')
-    .parse(process.argv);
+  .version(packageJson.version)
+  .usage('[options] <your-setup.json> (default: setup.json)')
+  .option('-c, --clean', 'Clean the simulated resources (Systems, Gateways, Applications with the "simulationLabel")')
+  .parse(process.argv);
 
 if (program.args.length > 1) {
-    conzole.failed('1 file max expected');
-    return 1;
+  conzole.failed('1 file max expected');
+  return 1;
 }
 
 const clean = program.clean;
@@ -28,73 +28,73 @@ const customSetupFile = program.args && program.args[0];
 const setupFile = customSetupFile || 'setup.json';
 let setup;
 try {
-    setup = jsonfile.readFileSync(`./${setupFile}`);
+  setup = jsonfile.readFileSync(`./${setupFile}`);
 } catch (error) {
-    let errorMessage = `Something went wrong: ${error.stack}`;
-    if (!customSetupFile) {
-        errorMessage = 'You did not provide any specific setup file and no setup.json file has been found.';
-    }
-    conzole.failed(errorMessage);
-    return 1;
+  let errorMessage = `Something went wrong: ${error.stack}`;
+  if (!customSetupFile) {
+    errorMessage = 'You did not provide any specific setup file and no setup.json file has been found.';
+  }
+  conzole.failed(errorMessage);
+  return 1;
 }
 
 let serverConfig;
 // First check for a local datacenter config
 try {
-    serverConfig = jsonfile.readFileSync(`./config/${setup.dataCenter}.json`);
+  serverConfig = jsonfile.readFileSync(`./config/${setup.dataCenter}.json`);
 } catch (error) {
-    // Otherwise take the default one
-    serverConfig = jsonfile.readFileSync(`${__dirname}/config/${setup.dataCenter}.json`);
+  // Otherwise take the default one
+  serverConfig = jsonfile.readFileSync(`${__dirname}/config/${setup.dataCenter}.json`);
 }
 
 const credentials = _.extend({}, setup.credentials, serverConfig.credentials);
 const simulation = jsonfile.readFileSync(`./simulations/${setup.simulation}.json`);
 
-
 splash({ clean, setupFile, setup, credentials, simulation });
 
 const Simulator = require('./lib/simulator');
 const airvantage = new AirVantage({
-    serverUrl: `https://${serverConfig.server}`,
-    credentials: credentials,
-    companyUid: setup.companyUid,
-    debug: true
+  serverUrl: `https://${serverConfig.server}`,
+  credentials: credentials,
+  companyUid: setup.companyUid,
+  debug: true
 });
 
 const factory = require('./lib/factory')(airvantage, simulation);
 const simulator = new Simulator({
-    airvantageClient: airvantage,
-    simulation: simulation,
-    configuration: { server: serverConfig.server }
+  airvantageClient: airvantage,
+  simulation: simulation,
+  configuration: { server: serverConfig.server }
 });
 
-
 function getSimulationLabel() {
-    if (simulation.simulationLabel) {
-        return [simulation.simulationLabel];
-    }
+  if (simulation.simulationLabel) {
+    return [simulation.simulationLabel];
+  }
 
-    return [simulation.label];
+  return [simulation.label];
 }
 
-airvantage.authenticate()
-    .then(function() {
-        conzole.done('Authenticated');
-        if (clean || simulation.clean) {
-            return factory.clean();
-        } else {
-            return factory.initialize()
-                .then(function() {
-                    conzole.start('Start simulation - ', getSimulationLabel()[0]);
-                    return airvantage.querySystems({ labels: getSimulationLabel() });
-                })
-                .then(function(systems) {
-                    conzole.quote('For ', systems.length, 'systems');
-                    return simulator.start(systems);
-                })
-                .then(function() {
-                    conzole.ln().title('Simulation succeeded');
-                });
-        }
-    })
-    .catch(error => conzole.failed('ERROR:', error.response ? error.response.body : error.stack));
+airvantage
+  .authenticate()
+  .then(function() {
+    conzole.done('Authenticated');
+    if (clean || simulation.clean) {
+      return factory.clean();
+    } else {
+      return factory
+        .initialize()
+        .then(function() {
+          conzole.start('Start simulation - ', getSimulationLabel()[0]);
+          return airvantage.querySystems({ labels: getSimulationLabel() });
+        })
+        .then(function(systems) {
+          conzole.quote('For ', systems.length, 'systems');
+          return simulator.start(systems);
+        })
+        .then(function() {
+          conzole.ln().title('Simulation succeeded');
+        });
+    }
+  })
+  .catch(error => conzole.failed('ERROR:', error.response ? error.response.body : error.stack));

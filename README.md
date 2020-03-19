@@ -52,6 +52,7 @@ $ npm install
 5. Fix fields in `trucks.json`
 
 -   simulationLabel
+-   dryRun (true for test run, false for pushing data into data lake)
 -   dataFile (change it to the file name you use in step #1)
 -   nbDaysInPast (this is used to specify which day you would like the data to be replayed as. For example, if the value is 1, then the data will be replayed with yesterday's timestamp)
 

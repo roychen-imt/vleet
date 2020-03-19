@@ -9,6 +9,7 @@
     }
   },
   "generation": {
+    "dryRun": true,
     "mode": "datapointBackDoor",
     "replay": {
       "dataFile": <DATA_JSON_FILE_NAME>,
